@@ -1,0 +1,53 @@
+﻿@model ML.Pagos
+@{
+    ViewBag.Title = "GetByIdCliente";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>PAGOS DEL CLIENTE</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <h5>Seleccione una Aseguradora para editarla o + para agregar...</h5>
+        <hr />
+    </div>
+</div>
+
+<div style="float:left;">
+    @Html.ActionLink("Agregar Pago", "Form", "Pagos", new { IdCliente = Model.Clientes.IdCliente }, htmlAttributes: new { @class = "btn btn-success" })
+</div>
+<br /><br /><br />
+
+<table class="table table-bordered table-responsive">
+
+    <thead>
+        <tr>
+            <td>ID Cliente</td>
+            <td>Nombre</td>
+            <td>Teléfono</td>
+            <td>ID Pago</td>
+            <td>Último Pago</td>
+            <td>Monto</td>
+            <td>Fecha y Hora</td>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (ML.Pagos pagos in Model.PagosList)
+        {
+            <tr>    
+                <td align="center">@pagos.Clientes.IdCliente</td>
+                <td align="center">@pagos.Clientes.Nombre</td>
+                <td align="center">@pagos.Clientes.Telefono</td>
+                <td align="center">@pagos.IdPago</td>
+                <td align="center">@pagos.FechaPago</td>
+                <td align="center">@pagos.Monto</td>
+                <td align="center">@pagos.FechaPago</td>
+
+            </tr>
+        }
+
+    </tbody>
+
+</table>

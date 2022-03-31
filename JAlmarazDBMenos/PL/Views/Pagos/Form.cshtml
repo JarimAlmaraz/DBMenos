@@ -1,0 +1,44 @@
+﻿@model ML.Pagos
+@{
+    ViewBag.Title = "Form";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>AÑADIR NUEVO PAGO</h2>
+            <h5>Ingrese el monto de pago para Cliente:</h5>
+        </div>
+    </div>
+
+    @using (Html.BeginForm("Form", "Pagos", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {        
+        <div class="row">
+            <div class="col-md-3">
+                @Html.LabelFor(model => model.Clientes.IdCliente, new { @class = "hidden" })
+                @Html.TextBoxFor(model => model.Clientes.IdCliente, new { @class = "hidden form-control", autocomplete = "off" })
+                @Html.ValidationMessageFor(model => model.Clientes.IdCliente)
+            </div>
+        </div>
+
+    <div class="row">
+        <div class="col-md-4 col-xs-12 col-sm-6">
+            @Html.LabelFor(model => model.Monto)
+            <div class="input-group">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-font"></i></span>
+                @Html.TextBoxFor(model => model.Monto, new { @class = "form-control", @id = "txtNombre" })
+                @Html.ValidationMessageFor(model => model.Monto)
+            </div>
+        </div>
+    </div>
+        
+        <br/>
+
+        <div class="col-md-4 col-xs-12 col-sm-6">
+            <input type="submit" value="Guardar" class="btn btn-success" />
+            @Html.ActionLink("Regresar", "GetByIdCliente", "Pagos", new { IdCliente = Model.Clientes.IdCliente }, htmlAttributes: new { @class = "btn btn-danger" })
+        </div>
+    }
+
+</div>

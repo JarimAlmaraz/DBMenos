@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="JAlmarazDBMenosModelStoreContainer" CdmEntityContainer="JAlmarazDBMenosEntities">
+    <EntitySetMapping Name="Clientes">
+      <EntityTypeMapping TypeName="JAlmarazDBMenosModel.Clientes">
+        <MappingFragment StoreEntitySet="Clientes">
+          <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="Ultimo_pago" ColumnName="Ultimo_pago" />
+          <ScalarProperty Name="Fecha_Creacion" ColumnName="Fecha_Creacion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pagos">
+      <EntityTypeMapping TypeName="JAlmarazDBMenosModel.Pagos">
+        <MappingFragment StoreEntitySet="Pagos">
+          <ScalarProperty Name="IdPago" ColumnName="IdPago" />
+          <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+          <ScalarProperty Name="Monto" ColumnName="Monto" />
+          <ScalarProperty Name="Fecha_Pago" ColumnName="Fecha_Pago" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="ClienteGetAll" FunctionName="JAlmarazDBMenosModel.Store.ClienteGetAll">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="JAlmarazDBMenosModel.ClienteGetAll_Result">
+          <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="Ultimo_pago" ColumnName="Ultimo_pago" />
+          <ScalarProperty Name="Fecha_Creacion" ColumnName="Fecha_Creacion" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="ClientesAdd" FunctionName="JAlmarazDBMenosModel.Store.ClientesAdd" />
+    <FunctionImportMapping FunctionImportName="PagosGetByIdCliente" FunctionName="JAlmarazDBMenosModel.Store.PagosGetByIdCliente">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="JAlmarazDBMenosModel.PagosGetByIdCliente_Result">
+          <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+          <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+          <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+          <ScalarProperty Name="IdPago" ColumnName="IdPago" />
+          <ScalarProperty Name="Monto" ColumnName="Monto" />
+          <ScalarProperty Name="Fecha_Pago" ColumnName="Fecha_Pago" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="PagoAdd" FunctionName="JAlmarazDBMenosModel.Store.PagoAdd" />
+  </EntityContainerMapping>
+</Mapping>

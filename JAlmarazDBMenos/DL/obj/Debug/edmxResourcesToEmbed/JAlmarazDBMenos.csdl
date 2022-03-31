@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="JAlmarazDBMenosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Clientes">
+    <Key>
+      <PropertyRef Name="IdCliente" />
+    </Key>
+    <Property Name="IdCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Telefono" Type="Int32" />
+    <Property Name="Ultimo_pago" Type="DateTime" Precision="0" />
+    <Property Name="Fecha_Creacion" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Pagos" Relationship="Self.FK__Pagos__IdCliente__1273C1CD" FromRole="Clientes" ToRole="Pagos" />
+  </EntityType>
+  <EntityType Name="Pagos">
+    <Key>
+      <PropertyRef Name="IdPago" />
+    </Key>
+    <Property Name="IdPago" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdCliente" Type="Int32" />
+    <Property Name="Monto" Type="Double" />
+    <Property Name="Fecha_Pago" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Clientes" Relationship="Self.FK__Pagos__IdCliente__1273C1CD" FromRole="Pagos" ToRole="Clientes" />
+  </EntityType>
+  <Association Name="FK__Pagos__IdCliente__1273C1CD">
+    <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
+    <End Role="Pagos" Type="Self.Pagos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clientes">
+        <PropertyRef Name="IdCliente" />
+      </Principal>
+      <Dependent Role="Pagos">
+        <PropertyRef Name="IdCliente" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="JAlmarazDBMenosEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Clientes" EntityType="Self.Clientes" />
+    <EntitySet Name="Pagos" EntityType="Self.Pagos" />
+    <AssociationSet Name="FK__Pagos__IdCliente__1273C1CD" Association="Self.FK__Pagos__IdCliente__1273C1CD">
+      <End Role="Clientes" EntitySet="Clientes" />
+      <End Role="Pagos" EntitySet="Pagos" />
+    </AssociationSet>
+    <FunctionImport Name="ClienteGetAll" ReturnType="Collection(JAlmarazDBMenosModel.ClienteGetAll_Result)" />
+    <FunctionImport Name="ClientesAdd">
+      <Parameter Name="Nombre" Mode="In" Type="String" />
+      <Parameter Name="Telefono" Mode="In" Type="Int32" />
+      <Parameter Name="Ultimo_Pago" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="PagosGetByIdCliente" ReturnType="Collection(JAlmarazDBMenosModel.PagosGetByIdCliente_Result)">
+      <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="PagoAdd">
+      <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+      <Parameter Name="Monto" Mode="In" Type="Double" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="ClienteGetAll_Result">
+    <Property Type="Int32" Name="IdCliente" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="Telefono" Nullable="true" />
+    <Property Type="DateTime" Name="Ultimo_pago" Nullable="true" />
+    <Property Type="DateTime" Name="Fecha_Creacion" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="PagosGetById_Result">
+    <Property Type="Int32" Name="IdCliente" Nullable="false" />
+    <Property Type="Int32" Name="IdPago" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="Telefono" Nullable="true" />
+    <Property Type="DateTime" Name="Ultimo_pago" Nullable="true" />
+    <Property Type="Double" Name="Monto" Nullable="true" />
+    <Property Type="DateTime" Name="Fecha_Pago" Nullable="true" Precision="23" />
+  </ComplexType>
+  <ComplexType Name="PagosGetByIdCliente_Result">
+    <Property Type="Int32" Name="IdCliente" Nullable="false" />
+    <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="Telefono" Nullable="true" />
+    <Property Type="Int32" Name="IdPago" Nullable="false" />
+    <Property Type="Double" Name="Monto" Nullable="true" />
+    <Property Type="DateTime" Name="Fecha_Pago" Nullable="true" Precision="23" />
+  </ComplexType>
+</Schema>

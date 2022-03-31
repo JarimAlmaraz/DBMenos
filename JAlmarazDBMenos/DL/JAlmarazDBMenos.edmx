@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="JAlmarazDBMenosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="Telefono" Type="int" />
+          <Property Name="Ultimo_pago" Type="date" />
+          <Property Name="Fecha_Creacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Pagos">
+          <Key>
+            <PropertyRef Name="IdPago" />
+          </Key>
+          <Property Name="IdPago" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCliente" Type="int" />
+          <Property Name="Monto" Type="float" />
+          <Property Name="Fecha_Pago" Type="datetime" />
+        </EntityType>
+        <Association Name="FK__Pagos__IdCliente__1273C1CD">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
+          <End Role="Pagos" Type="Self.Pagos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="Pagos">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="ClienteGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ClientesAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Nombre" Type="varchar" Mode="In" />
+          <Parameter Name="Telefono" Type="int" Mode="In" />
+          <Parameter Name="Ultimo_Pago" Type="date" Mode="In" />
+        </Function>
+        <Function Name="PagoAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCliente" Type="int" Mode="In" />
+          <Parameter Name="Monto" Type="float" Mode="In" />
+        </Function>
+        <Function Name="PagosGetByIdCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdCliente" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="JAlmarazDBMenosModelStoreContainer">
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pagos" EntityType="Self.Pagos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Pagos__IdCliente__1273C1CD" Association="Self.FK__Pagos__IdCliente__1273C1CD">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Pagos" EntitySet="Pagos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="JAlmarazDBMenosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Clientes">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="Int32" />
+          <Property Name="Ultimo_pago" Type="DateTime" Precision="0" />
+          <Property Name="Fecha_Creacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Pagos" Relationship="Self.FK__Pagos__IdCliente__1273C1CD" FromRole="Clientes" ToRole="Pagos" />
+        </EntityType>
+        <EntityType Name="Pagos">
+          <Key>
+            <PropertyRef Name="IdPago" />
+          </Key>
+          <Property Name="IdPago" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCliente" Type="Int32" />
+          <Property Name="Monto" Type="Double" />
+          <Property Name="Fecha_Pago" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Clientes" Relationship="Self.FK__Pagos__IdCliente__1273C1CD" FromRole="Pagos" ToRole="Clientes" />
+        </EntityType>
+        <Association Name="FK__Pagos__IdCliente__1273C1CD">
+          <End Role="Clientes" Type="Self.Clientes" Multiplicity="0..1" />
+          <End Role="Pagos" Type="Self.Pagos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clientes">
+              <PropertyRef Name="IdCliente" />
+            </Principal>
+            <Dependent Role="Pagos">
+              <PropertyRef Name="IdCliente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="JAlmarazDBMenosEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Clientes" EntityType="Self.Clientes" />
+          <EntitySet Name="Pagos" EntityType="Self.Pagos" />
+          <AssociationSet Name="FK__Pagos__IdCliente__1273C1CD" Association="Self.FK__Pagos__IdCliente__1273C1CD">
+            <End Role="Clientes" EntitySet="Clientes" />
+            <End Role="Pagos" EntitySet="Pagos" />
+          </AssociationSet>
+          <FunctionImport Name="ClienteGetAll" ReturnType="Collection(JAlmarazDBMenosModel.ClienteGetAll_Result)" />
+          <FunctionImport Name="ClientesAdd">
+            <Parameter Name="Nombre" Mode="In" Type="String" />
+            <Parameter Name="Telefono" Mode="In" Type="Int32" />
+            <Parameter Name="Ultimo_Pago" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="PagosGetByIdCliente" ReturnType="Collection(JAlmarazDBMenosModel.PagosGetByIdCliente_Result)">
+          <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PagoAdd">
+            <Parameter Name="IdCliente" Mode="In" Type="Int32" />
+            <Parameter Name="Monto" Mode="In" Type="Double" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="ClienteGetAll_Result">
+          <Property Type="Int32" Name="IdCliente" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Telefono" Nullable="true" />
+          <Property Type="DateTime" Name="Ultimo_pago" Nullable="true" />
+          <Property Type="DateTime" Name="Fecha_Creacion" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="PagosGetById_Result">
+          <Property Type="Int32" Name="IdCliente" Nullable="false" />
+          <Property Type="Int32" Name="IdPago" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Telefono" Nullable="true" />
+          <Property Type="DateTime" Name="Ultimo_pago" Nullable="true" />
+          <Property Type="Double" Name="Monto" Nullable="true" />
+          <Property Type="DateTime" Name="Fecha_Pago" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="PagosGetByIdCliente_Result">
+          <Property Type="Int32" Name="IdCliente" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Telefono" Nullable="true" />
+          <Property Type="Int32" Name="IdPago" Nullable="false" />
+          <Property Type="Double" Name="Monto" Nullable="true" />
+          <Property Type="DateTime" Name="Fecha_Pago" Nullable="true" Precision="23" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="JAlmarazDBMenosModelStoreContainer" CdmEntityContainer="JAlmarazDBMenosEntities">
+          <EntitySetMapping Name="Clientes">
+            <EntityTypeMapping TypeName="JAlmarazDBMenosModel.Clientes">
+              <MappingFragment StoreEntitySet="Clientes">
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Ultimo_pago" ColumnName="Ultimo_pago" />
+                <ScalarProperty Name="Fecha_Creacion" ColumnName="Fecha_Creacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pagos">
+            <EntityTypeMapping TypeName="JAlmarazDBMenosModel.Pagos">
+              <MappingFragment StoreEntitySet="Pagos">
+                <ScalarProperty Name="IdPago" ColumnName="IdPago" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="Monto" ColumnName="Monto" />
+                <ScalarProperty Name="Fecha_Pago" ColumnName="Fecha_Pago" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ClienteGetAll" FunctionName="JAlmarazDBMenosModel.Store.ClienteGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="JAlmarazDBMenosModel.ClienteGetAll_Result">
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Ultimo_pago" ColumnName="Ultimo_pago" />
+                <ScalarProperty Name="Fecha_Creacion" ColumnName="Fecha_Creacion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ClientesAdd" FunctionName="JAlmarazDBMenosModel.Store.ClientesAdd" />
+          <FunctionImportMapping FunctionImportName="PagosGetByIdCliente" FunctionName="JAlmarazDBMenosModel.Store.PagosGetByIdCliente">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="JAlmarazDBMenosModel.PagosGetByIdCliente_Result">
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="IdPago" ColumnName="IdPago" />
+                <ScalarProperty Name="Monto" ColumnName="Monto" />
+                <ScalarProperty Name="Fecha_Pago" ColumnName="Fecha_Pago" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PagoAdd" FunctionName="JAlmarazDBMenosModel.Store.PagoAdd" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
